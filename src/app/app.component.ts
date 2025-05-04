@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   }
 
   loadRecentSearches(){
-    const saved = localStorage.getItem('lastCity') || "";
+    const saved = localStorage.getItem('recentSearches') || "";
     this.recentSearches = saved ? JSON.parse(saved) : [];
   }
 
