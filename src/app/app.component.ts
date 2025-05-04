@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { WeatherService } from './weather.service';
 
 interface WeatherData {
@@ -15,7 +14,7 @@ interface WeatherData {
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [CommonModule, FormsModule, HttpClientModule]
+  imports: [CommonModule, FormsModule] // Removed HttpClientModule
 })
 export class AppComponent implements OnInit {
   city: string = '';
@@ -25,7 +24,6 @@ export class AppComponent implements OnInit {
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
-    // Optionally load last searched city from localStorage
     this.city = localStorage.getItem('lastCity') || '';
     if (this.city) {
       this.getWeather();
