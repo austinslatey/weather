@@ -59,6 +59,30 @@ form {
   }
 }
 
+// Recent searches
+.recent-searches {
+  margin-bottom: 20px;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      background-color: $background-light;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 5px 0;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: color.adjust($background-light, $lightness: -5%);
+      }
+    }
+  }
+}
+
 // Error message
 .error {
   color: $error-color;
