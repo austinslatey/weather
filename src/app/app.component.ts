@@ -22,53 +22,59 @@ export class AppComponent implements OnInit {
   error: string | null = null;
   recentSearches: string[] = [];
   maxSearches: number = 5;
+  units: 'metric' | 'imperial' = 'metric'; // Default to Celsius
 
-
-  constructor(private weatherService: WeatherService) {}
+  constructor(private weatherService: WeatherService) { }
 
   ngOnInit() {
+    // Load last city, recent searches, and unit preference
     this.city = localStorage.getItem('lastCity') || '';
+    this.units = (localStorage.getItem('units') as 'metric' | 'imperial') || 'metric';
     this.loadRecentSearches();
     if (this.city) {
       this.getWeather();
     }
   }
 
-  loadRecentSearches(){
-    const saved = localStorage.getItem('recentSearches') || "";
-    this.recentSearches = saved ? JSON.parse(saved) : [];
+  loadRecentSearches() {
+    const saved = localStorage.getItem('recentSearches');
+    try {
+      this.recentSearches = saved ? JSON.parse(saved) : [];
+      if (!Array.isArray(this.recentSearches)) {
+        this.recentSearches = [];
+      }
+    } catch (e) {
+      console.error('Error parsing recentSearches from localStorage:', e);
+      this.recentSearches = [];
+    }
   }
 
-  saveRecentSearches(){
+  saveRecentSearches() {
     localStorage.setItem('recentSearches', JSON.stringify(this.recentSearches));
   }
 
   addRecentSearch(city: string) {
-    // Remove duplicates (case-insensitive)
     city = city.trim();
     this.recentSearches = this.recentSearches.filter(
       c => c.toLowerCase() !== city.toLowerCase()
     );
-    // Add new city to the start
     this.recentSearches.unshift(city);
-    // Limit to maxSearches
     if (this.recentSearches.length > this.maxSearches) {
       this.recentSearches.pop();
     }
-    // Save to localStorage
     this.saveRecentSearches();
   }
 
   getWeather(city?: string) {
     const searchCity = city || this.city;
     if (searchCity.trim()) {
-      this.weatherService.getWeather(searchCity).subscribe({
+      this.weatherService.getWeather(searchCity, this.units).subscribe({
         next: (data) => {
           this.weather = data;
           this.error = null;
           this.city = searchCity;
           localStorage.setItem('lastCity', searchCity);
-          this.addRecentSearch(searchCity); // Add to recent searches
+          this.addRecentSearch(searchCity);
         },
         error: (err) => {
           this.error = err.message;
@@ -80,7 +86,14 @@ export class AppComponent implements OnInit {
 
   selectRecentSearch(city: string) {
     this.city = city;
-    this.getWeather(city); // Fetch weather for selected city
+    this.getWeather(city);
   }
 
+  toggleUnits() {
+    this.units = this.units === 'metric' ? 'imperial' : 'metric';
+    localStorage.setItem('units', this.units);
+    if (this.city) {
+      this.getWeather(); // Refetch weather with new units
+    }
+  }
 }
