@@ -22,14 +22,14 @@ export class AppComponent implements OnInit {
   error: string | null = null;
   recentSearches: string[] = [];
   maxSearches: number = 5;
-  units: 'metric' | 'imperial' = 'metric'; // Default to Celsius
+  units: 'metric' | 'imperial' = 'metric';
 
-  constructor(private weatherService: WeatherService) { }
+  constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
-    // Load last city, recent searches, and unit preference
     this.city = localStorage.getItem('lastCity') || '';
-    this.units = (localStorage.getItem('units') as 'metric' | 'imperial') || 'metric';
+    const savedUnits = localStorage.getItem('units');
+    this.units = savedUnits === 'imperial' ? 'imperial' : 'metric';
     this.loadRecentSearches();
     if (this.city) {
       this.getWeather();
@@ -68,8 +68,11 @@ export class AppComponent implements OnInit {
   getWeather(city?: string) {
     const searchCity = city || this.city;
     if (searchCity.trim()) {
+      console.log('Fetching weather for:', searchCity, 'with units:', this.units);
+      this.weather = null; // Clear weather to force UI update
       this.weatherService.getWeather(searchCity, this.units).subscribe({
         next: (data) => {
+          console.log('API response:', data);
           this.weather = data;
           this.error = null;
           this.city = searchCity;
@@ -77,6 +80,7 @@ export class AppComponent implements OnInit {
           this.addRecentSearch(searchCity);
         },
         error: (err) => {
+          console.error('API error:', err.message);
           this.error = err.message;
           this.weather = null;
         }
@@ -90,10 +94,10 @@ export class AppComponent implements OnInit {
   }
 
   toggleUnits() {
-    this.units = this.units === 'metric' ? 'imperial' : 'metric';
+    console.log('Units set to:', this.units);
     localStorage.setItem('units', this.units);
     if (this.city) {
-      this.getWeather(); // Refetch weather with new units
+      this.getWeather();
     }
   }
 }

@@ -17,7 +17,7 @@ export class WeatherService {
   private apiKey = environment.apiKey;
   private apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getWeather(city: string, units: 'metric' | 'imperial' = 'metric'): Observable<WeatherData> {
     const url = `${this.apiUrl}?q=${city}&appid=${this.apiKey}&units=${units}`;

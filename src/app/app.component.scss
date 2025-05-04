@@ -24,8 +24,13 @@ $error-color: #dc3545;
 }
 
 // Headings
-h1 {
+h1, h2 {
   color: $text-color;
+}
+
+h2 {
+  font-size: 1.2em;
+  margin: 10px 0;
 }
 
 // Form
@@ -55,6 +60,34 @@ form {
       background-color: $disabled-color;
       cursor: not-allowed;
       opacity: 0.7;
+    }
+  }
+}
+
+// Unit toggle
+.unit-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  label {
+    font-size: 1em;
+    color: $text-color;
+  }
+
+  select {
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
     }
   }
 }
@@ -101,7 +134,6 @@ form {
 
   h2 {
     margin: 0 0 10px;
-    color: $text-color;
   }
 
   p {
