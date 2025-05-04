@@ -4,15 +4,20 @@
 
     <!-- Form for entering city -->
     <form (ngSubmit)="getWeather()">
-      <input
-        type="text"
-        [(ngModel)]="city"
-        name="city"
-        placeholder="Enter city name"
-        required
-      />
+      <input type="text" [(ngModel)]="city" name="city" placeholder="Enter city name" required />
       <button type="submit" [disabled]="!city.trim()">Get Weather</button>
     </form>
+
+    <!-- Recent searches -->
+    <div class="recent-searches" *ngIf="recentSearches.length > 0">
+      <h2>Recent Searches</h2>
+      <ul>
+        <li *ngFor="let search of recentSearches" (click)="selectRecentSearch(search)">
+          {{ search }}
+        </li>
+      </ul>
+    </div>
+
 
     <!-- Error message -->
     <p class="error" *ngIf="error">{{ error }}</p>
@@ -23,10 +28,7 @@
       <p>Temperature: {{ weather.main.temp }}°C</p>
       <p>Description: {{ weather.weather[0].description }}</p>
       <p>Humidity: {{ weather.main.humidity }}%</p>
-      <img
-        [src]="'http://openweathermap.org/img/wn/' + weather.weather[0].icon + '.png'"
-        alt="Weather icon"
-      />
+      <img [src]="'http://openweathermap.org/img/wn/' + weather.weather[0].icon + '.png'" alt="Weather icon" />
     </div>
   </div>
 </main>
