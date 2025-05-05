@@ -25,6 +25,7 @@
           {{ search }}
         </li>
       </ul>
+      <button (click)="clearRecentSearches()" [disabled]="recentSearches.length === 0">Clear Recent Searches</button>
     </div>
 
 
