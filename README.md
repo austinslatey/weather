@@ -1,59 +1,61 @@
-# WeatherApp
+# Weather
+![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.10.
+## Description
 
-## Development server
+A simple Weather application built with **Angular** and **SCSS**. Users can enter a city name to view current weather data (temperature, description, humidity) fetched from the OpenWeatherMap API’s free-tier Current Weather Data endpoint. The app persists the last searched city, recent searches, and unit preference (Celsius/Fahrenheit) in `localStorage` and handles errors for invalid inputs.
 
-To start a local development server, run:
+![Application](./assets/screenshot.png)
 
-```bash
-ng serve
-```
+## Table of Contents 
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+* [Installation](#installation)
 
-## Code scaffolding
+* [Usage](#usage)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+* [License](#license)
 
-```bash
-ng generate component component-name
-```
+* [Dependencies](#dependencies)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+* [Tests](#tests)
 
-```bash
-ng generate --help
-```
+* [Questions](#questions)
 
-## Building
+## Installation
 
-To build the project run:
+To install necessary dependencies, run the following command:
 
-```bash
-ng build
-```
+`npm i`
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Usage
 
-## Running unit tests
+- Enter a city name (e.g., “Miami”) and click “Get Weather”.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- View weather details (temperature, description, humidity, icon).
 
-```bash
-ng test
-```
+- Toggle between Celsius (°C) and Fahrenheit (°F) using the unit dropdown.
 
-## Running end-to-end tests
+- Click a city from the “Recent Searches” list to fetch its weather.
 
-For end-to-end (e2e) testing, run:
+- Recent searches (up to 5), last searched city, and unit preference persist across refreshes.
 
-```bash
-ng e2e
-```
+- See error messages for invalid cities or API issues (e.g., invalid key).
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## License
 
-## Additional Resources
+This project is licensed under the MIT license.
+  
+## Dependencies
+- Angular: v17+ (see package.json)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Sass: For SCSS compilation
+
+- HttpClient: Provided via provideHttpClient() in main.ts
+
+- FormsModule: For input and dropdown binding
+
+- CommonModule: For *ngIf and *ngFor
+
+## Questions
+You can find more of my work at [austinslatey](https://github.com/austinslatey/).
+
