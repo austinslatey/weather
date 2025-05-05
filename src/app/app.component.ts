@@ -93,6 +93,11 @@ export class AppComponent implements OnInit {
     this.getWeather(city);
   }
 
+  clearRecentSearches() {
+    this.recentSearches = [];
+    this.saveRecentSearches();
+  }
+
   toggleUnits() {
     console.log('Units set to:', this.units);
     localStorage.setItem('units', this.units);
